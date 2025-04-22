@@ -85,7 +85,8 @@ class OrderController extends Controller
         try {
             $order = $this->orderService->updateOrder(
                 $order,
-                ['customer_name' => $validated['customer_name']],
+                ['customer_name' => $validated['customer_name'],
+                'items'=> $validated['items']],
             );
 
             return response()->json(['order' => $order], 201);

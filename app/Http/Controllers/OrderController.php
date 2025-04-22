@@ -57,6 +57,6 @@ class OrderController extends Controller
 
     public function history(Order $order): JsonResponse
     {
-        return response()->json(['history' => $order->statusHistory]);
+        return response()->json(['history' => $order->history]);
     }
 }

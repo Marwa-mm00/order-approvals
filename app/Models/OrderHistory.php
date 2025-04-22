@@ -10,9 +10,12 @@ class OrderHistory extends Model
 {
     use HasFactory;
 
+    protected $table = 'order_history';
+
     protected $fillable = [
         'order_id',
         'status',
+        'changed_at'
     ];
 
     public function order(): BelongsTo
