@@ -11,6 +11,7 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', function (Blueprint $table) {
             $table->id();
             $table->string('order_number')->unique();
+            $table->string('customer_name')->nullable();
             $table->decimal('total', 10, 2);
             $table->enum('status', ['pending', 'approved', 'rejected']);
             $table->timestamps();
