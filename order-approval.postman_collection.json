@@ -1,0 +1,636 @@
+{
+	"info": {
+		"_postman_id": "dfd4ca72-e14c-4f67-8b06-ea0c1960ee49",
+		"name": "order-approval",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "6260891"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "Login",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"if (pm.response.code === 200){",
+									"    pm.environment.set(\"token\", pm.response.json().access_token);",
+									"}",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n\r\n    \"email\":\"admin@admin.com\",\r\n    \"password\":\"12345678\"\r\n\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/login",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"login"
+							]
+						},
+						"description": "Login endpoint"
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/logout",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"logout"
+							]
+						},
+						"description": "Logout from sesson"
+					},
+					"response": []
+				},
+				{
+					"name": "Register",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n    \"name\":\"admin\",\n    \"email\":\"admin@admin.com\",\n    \"password\":\"12345678\",\n    \"password_confirmation\":\"12345678\"\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/register",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"register"
+							]
+						},
+						"description": "Refresh Token"
+					},
+					"response": []
+				},
+				{
+					"name": "Me",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "{{token}}",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/me",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"me"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Orders",
+			"item": [
+				{
+					"name": "list",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/orders",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "list sucees",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/orders",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Apr 2025 10:11:38 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"orders\": [\n        {\n            \"id\": 1,\n            \"order_number\": \"ORD000001\",\n            \"total\": 140,\n            \"status\": \"pending\",\n            \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"updated_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"items\": [\n                {\n                    \"id\": 1,\n                    \"order_id\": 1,\n                    \"item_name\": \"Item 1\",\n                    \"quantity\": 1,\n                    \"price\": 10,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 2,\n                    \"order_id\": 1,\n                    \"item_name\": \"Item 2\",\n                    \"quantity\": 2,\n                    \"price\": 20,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 3,\n                    \"order_id\": 1,\n                    \"item_name\": \"Item 3\",\n                    \"quantity\": 3,\n                    \"price\": 30,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                }\n            ]\n        },\n        {\n            \"id\": 2,\n            \"order_number\": \"ORD000002\",\n            \"total\": 140,\n            \"status\": \"pending\",\n            \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"updated_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"items\": [\n                {\n                    \"id\": 4,\n                    \"order_id\": 2,\n                    \"item_name\": \"Item 1\",\n                    \"quantity\": 1,\n                    \"price\": 10,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 5,\n                    \"order_id\": 2,\n                    \"item_name\": \"Item 2\",\n                    \"quantity\": 2,\n                    \"price\": 20,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 6,\n                    \"order_id\": 2,\n                    \"item_name\": \"Item 3\",\n                    \"quantity\": 3,\n                    \"price\": 30,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                }\n            ]\n        },\n        {\n            \"id\": 3,\n            \"order_number\": \"ORD000003\",\n            \"total\": 140,\n            \"status\": \"pending\",\n            \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"updated_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"items\": [\n                {\n                    \"id\": 7,\n                    \"order_id\": 3,\n                    \"item_name\": \"Item 1\",\n                    \"quantity\": 1,\n                    \"price\": 10,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 8,\n                    \"order_id\": 3,\n                    \"item_name\": \"Item 2\",\n                    \"quantity\": 2,\n                    \"price\": 20,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 9,\n                    \"order_id\": 3,\n                    \"item_name\": \"Item 3\",\n                    \"quantity\": 3,\n                    \"price\": 30,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                }\n            ]\n        },\n        {\n            \"id\": 4,\n            \"order_number\": \"ORD000004\",\n            \"total\": 140,\n            \"status\": \"pending\",\n            \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"updated_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"items\": [\n                {\n                    \"id\": 10,\n                    \"order_id\": 4,\n                    \"item_name\": \"Item 1\",\n                    \"quantity\": 1,\n                    \"price\": 10,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 11,\n                    \"order_id\": 4,\n                    \"item_name\": \"Item 2\",\n                    \"quantity\": 2,\n                    \"price\": 20,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 12,\n                    \"order_id\": 4,\n                    \"item_name\": \"Item 3\",\n                    \"quantity\": 3,\n                    \"price\": 30,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                }\n            ]\n        },\n        {\n            \"id\": 5,\n            \"order_number\": \"ORD000005\",\n            \"total\": 140,\n            \"status\": \"pending\",\n            \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"updated_at\": \"2025-04-22T10:09:14.000000Z\",\n            \"items\": [\n                {\n                    \"id\": 13,\n                    \"order_id\": 5,\n                    \"item_name\": \"Item 1\",\n                    \"quantity\": 1,\n                    \"price\": 10,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 14,\n                    \"order_id\": 5,\n                    \"item_name\": \"Item 2\",\n                    \"quantity\": 2,\n                    \"price\": 20,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                },\n                {\n                    \"id\": 15,\n                    \"order_id\": 5,\n                    \"item_name\": \"Item 3\",\n                    \"quantity\": 3,\n                    \"price\": 30,\n                    \"created_at\": \"2025-04-22T10:09:14.000000Z\",\n                    \"updated_at\": \"2025-04-22T10:09:14.000000Z\"\n                }\n            ]\n        }\n    ]\n}"
+						}
+					]
+				},
+				{
+					"name": "create",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customer_name\": \"John Doe\",\n  \"items\": [\n    {\n      \"item_name\": \"Item 1\",\n      \"quantity\": 2,\n      \"price\": 50\n    },\n    {\n      \"item_name\": \"Item 2\",\n      \"quantity\": 1,\n      \"price\": 100\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/orders/create",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"create"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success created",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"customer_name\": \"John Doe\",\n  \"items\": [\n    {\n      \"item_name\": \"Item 1\",\n      \"quantity\": 2,\n      \"price\": 50\n    },\n    {\n      \"item_name\": \"Item 2\",\n      \"quantity\": 1,\n      \"price\": 100\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/orders/create",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders",
+										"create"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Apr 2025 10:25:17 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"order\": {\n        \"order_number\": \"ORD-20250422-1\",\n        \"total\": 200,\n        \"status\": \"pending\",\n        \"updated_at\": \"2025-04-22T10:25:17.000000Z\",\n        \"created_at\": \"2025-04-22T10:25:17.000000Z\",\n        \"id\": 6\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "update",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\n  \"customer_name\": \"John Doe\",\n  \"items\": [\n    {\n      \"item_name\": \"Item 1\",\n      \"quantity\": 2,\n      \"price\": 50\n    },\n    {\n      \"item_name\": \"Item 2\",\n      \"quantity\": 55,\n      \"price\": 100\n    }\n  ]\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "{{url}}/orders/update/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"update",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "success update",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"customer_name\": \"John Doe\",\n  \"items\": [\n    {\n      \"item_name\": \"Item 1\",\n      \"quantity\": 2,\n      \"price\": 50\n    },\n    {\n      \"item_name\": \"Item 2\",\n      \"quantity\": 55,\n      \"price\": 100\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{url}}/orders/update/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders",
+										"update",
+										"1"
+									]
+								}
+							},
+							"status": "Created",
+							"code": 201,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Apr 2025 10:40:01 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"order\": {\n        \"id\": 1,\n        \"order_number\": \"ORD000001\",\n        \"customer_name\": \"John Doe\",\n        \"total\": 5600,\n        \"status\": \"pending\",\n        \"created_at\": \"2025-04-22T10:28:29.000000Z\",\n        \"updated_at\": \"2025-04-22T10:40:01.000000Z\",\n        \"items\": [\n            {\n                \"id\": 18,\n                \"order_id\": 1,\n                \"item_name\": \"Item 1\",\n                \"quantity\": 2,\n                \"price\": 50,\n                \"created_at\": \"2025-04-22T10:40:01.000000Z\",\n                \"updated_at\": \"2025-04-22T10:40:01.000000Z\"\n            },\n            {\n                \"id\": 19,\n                \"order_id\": 1,\n                \"item_name\": \"Item 2\",\n                \"quantity\": 55,\n                \"price\": 100,\n                \"created_at\": \"2025-04-22T10:40:01.000000Z\",\n                \"updated_at\": \"2025-04-22T10:40:01.000000Z\"\n            }\n        ]\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "approve",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/orders/approve/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"approve",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "example not require approval",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/orders/approve/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders",
+										"approve",
+										"1"
+									]
+								}
+							},
+							"status": "Bad Request",
+							"code": 400,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Apr 2025 10:31:02 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"error\": \"Orders below or equal to $1000 do not require approval.\"\n}"
+						},
+						{
+							"name": "approved",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/orders/approve/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders",
+										"approve",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Apr 2025 10:45:09 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"order\": {\n        \"id\": 1,\n        \"order_number\": \"ORD000001\",\n        \"customer_name\": \"John Doe\",\n        \"total\": 5600,\n        \"status\": \"approved\",\n        \"created_at\": \"2025-04-22T10:42:20.000000Z\",\n        \"updated_at\": \"2025-04-22T10:45:09.000000Z\"\n    }\n}"
+						}
+					]
+				},
+				{
+					"name": "history",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "{{url}}/orders/history/1",
+							"host": [
+								"{{url}}"
+							],
+							"path": [
+								"orders",
+								"history",
+								"1"
+							]
+						}
+					},
+					"response": [
+						{
+							"name": "sucess history",
+							"originalRequest": {
+								"method": "GET",
+								"header": [],
+								"url": {
+									"raw": "{{url}}/orders/history/1",
+									"host": [
+										"{{url}}"
+									],
+									"path": [
+										"orders",
+										"history",
+										"1"
+									]
+								}
+							},
+							"status": "OK",
+							"code": 200,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "Host",
+									"value": "127.0.0.1:8000"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								},
+								{
+									"key": "X-Powered-By",
+									"value": "PHP/8.3.19"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, private"
+								},
+								{
+									"key": "Date",
+									"value": "Tue, 22 Apr 2025 10:45:45 GMT"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Access-Control-Allow-Origin",
+									"value": "*"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"history\": [\n        {\n            \"id\": 1,\n            \"order_id\": 1,\n            \"status\": \"changed to approved\",\n            \"changed_at\": \"2025-04-22 10:45:09\",\n            \"created_at\": \"2025-04-22T10:45:09.000000Z\",\n            \"updated_at\": \"2025-04-22T10:45:09.000000Z\"\n        }\n    ]\n}"
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "url",
+			"value": "http://127.0.0.1:8000/api/v1",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": "",
+			"type": "string"
+		}
+	]
+}
